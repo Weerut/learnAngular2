@@ -1,0 +1,7 @@
+<div class="fave" [title]="favourite" (click)="onClick()">
+    <h3>Add to Favourite:
+        <i class="fa fa-heart" [class.favSelected]="isSelected(fave)">
+            &nbsp; {{reviews}}
+        </i>
+    </h3>
+</div>
