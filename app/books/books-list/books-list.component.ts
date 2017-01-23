@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-// import { IBook } from '../book';
+import { IBook } from '../book';
+import { BookService } from '../book.service'
 
 @Component({
     moduleId: module.id,
@@ -7,34 +8,27 @@ import { Component, OnInit, OnChanges } from '@angular/core';
     templateUrl: 'books-list.component.html'
 })
 
-export class BooksListComponent {
+export class BooksListComponent implements OnInit {
 
+    books: IBook[];
     animals: string[] = ['zebra', 'moose'];
     imageWidth: number = 100;
     showImage: boolean = true;
     booksInStock: number = 2;
     favouriteMessage: string = "test";
+    errorMessage:any ="";
 
-    books: any[] = [{
-        bookAuthor: "Tom Jones",
-        bookTitle: "Hi yo",
-        bookPrice: 99.95,
-        bookDescription: "Book of historical fiction",
-        publishedOn: new Date('02/12/1984'),
-        inStock: "yes",
-        bookReviews: 20,
-        bookImageUrl: "app/assets/images/656.jpg"
-    },{
-        bookAuthor: "Mike Jones",
-        bookTitle: "War and Peace 2AAA",
-        bookPrice: 10.95,
-        bookDescription: "Book of historical fiction",
-        publishedOn: new Date('02/12/1984'),
-        inStock: "yes",
-        bookReviews: 18,
-        bookImageUrl: "app/assets/images/656.jpg"
-    }];
+    constructor(private _bookService: BookService) { }
 
+    ngOnInit() { this.getBooks() }
+
+    getBooks() {
+        this._bookService.getBooks()
+            .subscribe(
+            books => this.books = books,
+            error =>this.errorMessage = <any>error
+        );
+    }
 
     toggleImage(): void {
         this.showImage = !this.showImage;
@@ -43,4 +37,6 @@ export class BooksListComponent {
     onFavouriteClicked(message: string): void {
         this.favouriteMessage = message;
     }
+
+
 }

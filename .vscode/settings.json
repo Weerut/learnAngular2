@@ -2,7 +2,7 @@
     "typescript.tsdk": "./node_modules/typescript/lib",
     "files.exclude": {
         "**/.git": true,
-        "**/*.js": true,
+        "app/**/*.js": true,
         "**/*.js.map": true,
           "*.vscode": true
     }

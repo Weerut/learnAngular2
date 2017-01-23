@@ -6,11 +6,22 @@ import { FormsModule } from '@angular/forms';
 import { HighlightDirective } from './shared/highlight.directive'
 import { TruncatePipe } from './shared/pipes/truncate.pipe'
 import { FavouriteComponent } from './favourites/favourite.component'
+import { WelcomeComponent } from './welcome/welcome.component'
+import { BookService } from './books/book.service'
+import { HttpModule } from '@angular/http'
+import { RouterModule } from '@angular/router'
+
 
 @NgModule({
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot([
+    { path: 'welcome', component: WelcomeComponent },
+    { path: 'books', component: BooksListComponent },
+    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+    { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+  ])],
+  providers: [BookService],
   declarations: [AppComponent,
-    BooksListComponent, HighlightDirective, TruncatePipe, FavouriteComponent],
+    BooksListComponent, HighlightDirective, TruncatePipe, FavouriteComponent, WelcomeComponent],
   bootstrap: [AppComponent]
 })
 
